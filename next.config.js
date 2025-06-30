@@ -1,13 +1,13 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Dynamic configuration based on deployment target
-  ...(process.env.EXPORT === 'true' && {
+  // Only enable static export for non-Vercel builds
+  ...(process.env.EXPORT === 'true' ? {
     output: 'export',
     trailingSlash: true,
-    images: {
-      unoptimized: true
-    }
-  })
+    images: { unoptimized: true }
+  } : {}),
+  
+  swcMinify: true
 }
 
 module.exports = nextConfig 
