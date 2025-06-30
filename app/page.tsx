@@ -1,4 +1,5 @@
 import React from 'react'
+import Link from 'next/link'
 import { Download, Star, Users, Zap, Shield, BarChart3, Chrome, ArrowRight } from 'lucide-react'
 
 export default function Home() {
@@ -244,8 +245,8 @@ export default function Home() {
               <h4 className="font-semibold mb-4">Company</h4>
               <ul className="space-y-2 text-gray-400">
                 <li><a href="#" className="hover:text-white transition-colors">About</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Privacy</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Terms</a></li>
+                <li><Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link></li>
+                <li><Link href="/terms" className="hover:text-white transition-colors">Terms & Conditions</Link></li>
               </ul>
             </div>
           </div>
