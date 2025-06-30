@@ -12,25 +12,42 @@ function ProductCarousel() {
     {
       title: "Google Sheets Integration",
       description: "Seamlessly works within your existing Google Sheets workflow",
-      image: "/api/placeholder/800/500",
+      media: {
+        type: "image",
+        src: "/images/sheets-integration.png",
+        alt: "SheetShow integrated within Google Sheets interface"
+      },
       features: ["One-click activation", "Preserves your data", "No setup required"]
     },
     {
       title: "Beautiful Slideshows",
       description: "Transform spreadsheet rows into stunning presentation cards",
-      image: "/api/placeholder/800/500", 
+      media: {
+        type: "image", 
+        src: "/images/slideshow-view.png",
+        alt: "Beautiful slideshow presentation view"
+      },
       features: ["Card-based layout", "Professional design", "Real-time updates"]
     },
     {
       title: "Smart Filtering",
       description: "Filter and organize your data for focused presentations",
-      image: "/api/placeholder/800/500",
+      media: {
+        type: "image",
+        src: "/images/filtering-interface.png", 
+        alt: "Smart filtering and organization interface"
+      },
       features: ["Dynamic filters", "Custom grouping", "Easy navigation"]
     },
     {
       title: "Customizable Views",
       description: "Choose columns, layout, and styling to match your needs",
-      image: "/api/placeholder/800/500",
+      media: {
+        type: "video",
+        src: "/images/demo-video.mp4",
+        poster: "/images/customizable-views.png",
+        alt: "Customizable views and layout options"
+      },
       features: ["Column selection", "Layout options", "Custom styling"]
     }
   ]
@@ -95,15 +112,43 @@ function ProductCarousel() {
                   </div>
                 </div>
                 
-                {/* Image Placeholder */}
+                {/* Media (Image or Video) */}
                 <div className="relative">
-                  <div className="aspect-video bg-gradient-to-br from-primary-100 to-primary-200 rounded-xl flex items-center justify-center border border-primary-200">
-                    <div className="text-center p-8">
-                      <BarChart3 className="w-16 h-16 text-primary-600 mx-auto mb-4" />
-                      <p className="text-primary-700 font-medium">{slide.title}</p>
-                      <p className="text-primary-600 text-sm mt-2">Screenshot Preview</p>
+                  {slide.media.type === 'video' ? (
+                    <video 
+                      className="w-full aspect-video rounded-xl shadow-lg"
+                      controls
+                      poster={slide.media.poster}
+                      preload="metadata"
+                    >
+                      <source src={slide.media.src} type="video/mp4" />
+                      Your browser does not support the video tag.
+                    </video>
+                  ) : (
+                    <div className="aspect-video rounded-xl overflow-hidden shadow-lg">
+                      <img 
+                        src={slide.media.src}
+                        alt={slide.media.alt}
+                        className="w-full h-full object-cover"
+                        onError={(e) => {
+                          // Fallback to placeholder if image fails to load
+                          const target = e.target as HTMLElement;
+                          target.style.display = 'none';
+                          const fallback = target.nextElementSibling as HTMLElement;
+                          if (fallback) fallback.style.display = 'flex';
+                        }}
+                      />
+                      {/* Fallback placeholder */}
+                      <div className="aspect-video bg-gradient-to-br from-primary-100 to-primary-200 rounded-xl flex items-center justify-center border border-primary-200" style={{display: 'none'}}>
+                        <div className="text-center p-8">
+                          <BarChart3 className="w-16 h-16 text-primary-600 mx-auto mb-4" />
+                          <p className="text-primary-700 font-medium">{slide.title}</p>
+                          <p className="text-primary-600 text-sm mt-2">Add your screenshot to<br/>/public/images/</p>
+                        </div>
+                      </div>
                     </div>
-                  </div>
+                  )}
+                  
                   {/* Decorative elements */}
                   <div className="absolute -top-4 -right-4 w-8 h-8 bg-primary-500 rounded-full opacity-20"></div>
                   <div className="absolute -bottom-4 -left-4 w-6 h-6 bg-primary-300 rounded-full opacity-30"></div>
