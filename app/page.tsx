@@ -1,3 +1,5 @@
+'use client'
+
 import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { Download, Star, Users, Zap, Shield, BarChart3, Chrome, ArrowRight, ChevronLeft, ChevronRight, Play } from 'lucide-react'
