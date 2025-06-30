@@ -20,6 +20,7 @@
    - Import your GitHub repository
    - Vercel will automatically detect it's a Next.js project
    - Click "Deploy"
+   - No additional configuration needed!
 
 3. **Automatic deployments:**
    - Every push to main branch will trigger automatic deployment
@@ -51,14 +52,14 @@
 
 ### Netlify
 
-1. **Build the project:**
+1. **Build for static hosting:**
    ```bash
-   npm run build
+   npm run build:static
    ```
 
 2. **Deploy to Netlify:**
    - Drag and drop the `out` folder to [netlify.com/drop](https://netlify.com/drop)
-   - Or connect your GitHub repository to Netlify
+   - Or connect your GitHub repository to Netlify with build command: `npm run build:static`
 
 ### GitHub Pages
 
@@ -74,7 +75,7 @@
 
 3. **Deploy:**
    ```bash
-   npm run build
+   npm run build:static
    npm run deploy
    ```
 
@@ -136,4 +137,46 @@ All modern hosting platforms provide automatic SSL certificates:
 - ✅ Netlify: Automatic  
 - ✅ GitHub Pages: Automatic for custom domains
 
-Your landing page will be available at `https://your-domain.com` 
+Your landing page will be available at `https://your-domain.com`
+
+## Troubleshooting
+
+### Vercel Deployment Errors
+
+**Error: "routes-manifest.json couldn't be found"**
+- Solution: Make sure you're using `npm run build` (not `npm run build:static`) for Vercel
+- The project is now configured to work correctly with Vercel out of the box
+
+**Build Command for Different Platforms:**
+- **Vercel**: Use `npm run build` or `npm run build:vercel`
+- **Static Hosting** (Netlify, GitHub Pages, etc.): Use `npm run build:static`
+
+### Environment Variables Not Working
+
+Make sure environment variables are prefixed with `NEXT_PUBLIC_` for client-side access:
+```bash
+# ✅ Correct
+NEXT_PUBLIC_CHROME_STORE_URL=...
+
+# ❌ Won't work in browser
+CHROME_STORE_URL=...
+```
+
+### Build Fails
+
+1. **Clear Next.js cache:**
+   ```bash
+   rm -rf .next
+   npm run build
+   ```
+
+2. **Check Node.js version:**
+   ```bash
+   node --version  # Should be 18+
+   ```
+
+3. **Reinstall dependencies:**
+   ```bash
+   rm -rf node_modules package-lock.json
+   npm install
+   ``` 
