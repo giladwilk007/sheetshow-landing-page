@@ -17,7 +17,6 @@ export default function Home() {
             </div>
             <nav className="hidden md:flex items-center space-x-8">
               <a href="#features" className="text-gray-600 hover:text-primary-600 transition-colors">Features</a>
-              <a href="#testimonials" className="text-gray-600 hover:text-primary-600 transition-colors">Reviews</a>
               <div className="flex items-center space-x-4 text-sm">
                 <Link href="/terms" className="text-gray-500 hover:text-primary-600 transition-colors">Terms</Link>
                 <Link href="/privacy" className="text-gray-500 hover:text-primary-600 transition-colors">Privacy</Link>
@@ -66,6 +65,7 @@ export default function Home() {
                   <Download className="w-5 h-5 mr-2" />
                   Add to Chrome - Free
                 </a>
+{/* User rating - hidden until we have real reviews
                 <div className="flex items-center text-sm text-gray-500">
                   <div className="flex -space-x-1 mr-3">
                     {[1,2,3,4,5].map((i) => (
@@ -74,6 +74,7 @@ export default function Home() {
                   </div>
                   <span>4.9/5 from 10,000+ users</span>
                 </div>
+                */}
               </div>
             </div>
           </div>
@@ -137,7 +138,9 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Testimonials Section */}
+{/* 
+      Testimonials Section - HIDDEN FOR NOW (will be re-enabled when real reviews are available)
+      
       <section id="testimonials" className="section-padding bg-gray-50">
         <div className="container-custom">
           <div className="text-center mb-16">
@@ -186,6 +189,7 @@ export default function Home() {
           </div>
         </div>
       </section>
+      */}
 
       {/* CTA Section */}
       <section id="download" className="section-padding bg-primary-600">
