@@ -1,6 +1,152 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { Download, Star, Users, Zap, Shield, BarChart3, Chrome, ArrowRight } from 'lucide-react'
+import { Download, Star, Users, Zap, Shield, BarChart3, Chrome, ArrowRight, ChevronLeft, ChevronRight, Play } from 'lucide-react'
+
+// Product Carousel Component
+function ProductCarousel() {
+  const [currentSlide, setCurrentSlide] = useState(0)
+  
+  const slides = [
+    {
+      title: "Google Sheets Integration",
+      description: "Seamlessly works within your existing Google Sheets workflow",
+      image: "/api/placeholder/800/500",
+      features: ["One-click activation", "Preserves your data", "No setup required"]
+    },
+    {
+      title: "Beautiful Slideshows",
+      description: "Transform spreadsheet rows into stunning presentation cards",
+      image: "/api/placeholder/800/500", 
+      features: ["Card-based layout", "Professional design", "Real-time updates"]
+    },
+    {
+      title: "Smart Filtering",
+      description: "Filter and organize your data for focused presentations",
+      image: "/api/placeholder/800/500",
+      features: ["Dynamic filters", "Custom grouping", "Easy navigation"]
+    },
+    {
+      title: "Customizable Views",
+      description: "Choose columns, layout, and styling to match your needs",
+      image: "/api/placeholder/800/500",
+      features: ["Column selection", "Layout options", "Custom styling"]
+    }
+  ]
+
+  // Auto-advance slides
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % slides.length)
+    }, 5000)
+    return () => clearInterval(timer)
+  }, [slides.length])
+
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % slides.length)
+  }
+
+  const prevSlide = () => {
+    setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length)
+  }
+
+  return (
+    <div className="relative max-w-6xl mx-auto">
+      {/* Main Carousel */}
+      <div className="relative overflow-hidden rounded-2xl bg-white shadow-xl">
+        <div 
+          className="flex transition-transform duration-500 ease-in-out"
+          style={{ transform: `translateX(-${currentSlide * 100}%)` }}
+        >
+          {slides.map((slide, index) => (
+            <div key={index} className="w-full flex-shrink-0">
+              <div className="grid md:grid-cols-2 gap-8 p-8 md:p-12">
+                {/* Content */}
+                <div className="flex flex-col justify-center space-y-6">
+                  <div>
+                    <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
+                      {slide.title}
+                    </h3>
+                    <p className="text-lg text-gray-600 mb-6">
+                      {slide.description}
+                    </p>
+                  </div>
+                  
+                  <ul className="space-y-3">
+                    {slide.features.map((feature, featureIndex) => (
+                      <li key={featureIndex} className="flex items-center text-gray-700">
+                        <div className="w-2 h-2 bg-primary-500 rounded-full mr-3"></div>
+                        {feature}
+                      </li>
+                    ))}
+                  </ul>
+                  
+                  <div className="pt-4">
+                    <a 
+                      href={process.env.NEXT_PUBLIC_CHROME_STORE_URL || "#"} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center btn-primary"
+                    >
+                      <Play className="w-4 h-4 mr-2" />
+                      Try It Now
+                    </a>
+                  </div>
+                </div>
+                
+                {/* Image Placeholder */}
+                <div className="relative">
+                  <div className="aspect-video bg-gradient-to-br from-primary-100 to-primary-200 rounded-xl flex items-center justify-center border border-primary-200">
+                    <div className="text-center p-8">
+                      <BarChart3 className="w-16 h-16 text-primary-600 mx-auto mb-4" />
+                      <p className="text-primary-700 font-medium">{slide.title}</p>
+                      <p className="text-primary-600 text-sm mt-2">Screenshot Preview</p>
+                    </div>
+                  </div>
+                  {/* Decorative elements */}
+                  <div className="absolute -top-4 -right-4 w-8 h-8 bg-primary-500 rounded-full opacity-20"></div>
+                  <div className="absolute -bottom-4 -left-4 w-6 h-6 bg-primary-300 rounded-full opacity-30"></div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Navigation Arrows */}
+      <button
+        onClick={prevSlide}
+        className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white shadow-lg rounded-full flex items-center justify-center text-gray-600 hover:text-primary-600 hover:bg-primary-50 transition-colors z-10"
+        aria-label="Previous slide"
+      >
+        <ChevronLeft className="w-5 h-5" />
+      </button>
+      
+      <button
+        onClick={nextSlide}
+        className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white shadow-lg rounded-full flex items-center justify-center text-gray-600 hover:text-primary-600 hover:bg-primary-50 transition-colors z-10"
+        aria-label="Next slide"
+      >
+        <ChevronRight className="w-5 h-5" />
+      </button>
+
+      {/* Dots Indicator */}
+      <div className="flex justify-center mt-8 space-x-2">
+        {slides.map((_, index) => (
+          <button
+            key={index}
+            onClick={() => setCurrentSlide(index)}
+            className={`w-3 h-3 rounded-full transition-colors ${
+              index === currentSlide 
+                ? 'bg-primary-600' 
+                : 'bg-gray-300 hover:bg-gray-400'
+            }`}
+            aria-label={`Go to slide ${index + 1}`}
+          />
+        ))}
+      </div>
+    </div>
+  )
+}
 
 export default function Home() {
   return (
@@ -78,6 +224,22 @@ export default function Home() {
               </div>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* Product Carousel Section */}
+      <section className="section-padding bg-gray-50">
+        <div className="container-custom">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              See SheetShow in Action
+            </h2>
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+              Transform your Google Sheets data into beautiful, interactive presentations with just a few clicks.
+            </p>
+          </div>
+          
+          <ProductCarousel />
         </div>
       </section>
 
