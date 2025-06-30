@@ -84,4 +84,4 @@ NEXT_PUBLIC_CHROME_STORE_URL=https://chrome.google.com/webstore/detail/your-exte
 - React 18
 - Tailwind CSS
 - TypeScript
-- Lucide React Icons 
+- Lucide React Icons
