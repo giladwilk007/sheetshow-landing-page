@@ -18,6 +18,10 @@ export default function Home() {
             <nav className="hidden md:flex items-center space-x-8">
               <a href="#features" className="text-gray-600 hover:text-primary-600 transition-colors">Features</a>
               <a href="#testimonials" className="text-gray-600 hover:text-primary-600 transition-colors">Reviews</a>
+              <div className="flex items-center space-x-4 text-sm">
+                <Link href="/terms" className="text-gray-500 hover:text-primary-600 transition-colors">Terms</Link>
+                <Link href="/privacy" className="text-gray-500 hover:text-primary-600 transition-colors">Privacy</Link>
+              </div>
               <a 
                 href={process.env.NEXT_PUBLIC_CHROME_STORE_URL || "#download"} 
                 target="_blank" 
